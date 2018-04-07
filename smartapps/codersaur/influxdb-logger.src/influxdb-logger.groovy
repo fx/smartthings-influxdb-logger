@@ -278,7 +278,7 @@ def handleModeEvent(evt) {
  *   - https://docs.influxdata.com/influxdb/v0.10/guides/writing_data/
  **/
 def handleEvent(evt) {
-    logger("handleEvent(): $evt.displayName($evt.name:$evt.unit) $evt.value","info")
+    logger("handleEvent(): $evt.displayName(${state.databasePrefix}$evt.name:$evt.unit) $evt.value","info")
     
     // Build data string to send to InfluxDB:
     //  Format: <measurement>[,<tag_name>=<tag_value>] field=<field_value>
