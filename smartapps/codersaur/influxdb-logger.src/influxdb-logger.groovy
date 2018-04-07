@@ -65,6 +65,7 @@ preferences {
         input "prefDatabaseHost", "text", title: "Host", defaultValue: "10.10.10.10", required: true
         input "prefDatabasePort", "text", title: "Port", defaultValue: "8086", required: true
         input "prefDatabaseName", "text", title: "Database Name", defaultValue: "", required: true
+        input "prefDatabasePrefix", "text", title: "Prefix Measurements", defaultValue: "", required: false
         input "prefDatabaseUser", "text", title: "Username", required: false
         input "prefDatabasePass", "text", title: "Password", required: false
     }
@@ -169,6 +170,7 @@ def updated() {
     state.databaseHost = settings.prefDatabaseHost
     state.databasePort = settings.prefDatabasePort
     state.databaseName = settings.prefDatabaseName
+    state.databasePrefix = settings.prefDatabasePrefix
     state.databaseUser = settings.prefDatabaseUser
     state.databasePass = settings.prefDatabasePass 
     
@@ -282,7 +284,7 @@ def handleEvent(evt) {
     //  Format: <measurement>[,<tag_name>=<tag_value>] field=<field_value>
     //    If value is an integer, it must have a trailing "i"
     //    If value is a string, it must be enclosed in double quotes.
-    def measurement = evt.name
+    def measurement = "${state.databasePrefix}${evt.name}"
     // tags:
     def deviceId = escapeStringForInfluxDB(evt.deviceId)
     def deviceName = escapeStringForInfluxDB(evt.displayName)
